@@ -20,6 +20,7 @@ import {
 } from '../lib/aggregate'
 import { buildDashboard, sendersForYears } from '../lib/dashboard'
 import type { ChartMode, YearFilter } from '../lib/dashboard'
+import { demoCsv } from '../lib/demo'
 import { parseStatement } from '../lib/parse'
 import {
   loadExcludedSenders,
@@ -70,6 +71,8 @@ function Home() {
     }
     setBusy(false)
   }
+
+  const loadDemo = () => handleFile('demo-statement.csv', demoCsv())
 
   useEffect(() => {
     saveExcludedSenders(excludedSenders)
@@ -185,6 +188,17 @@ function Home() {
           <p className="text-muted mt-1.5">How much you earned, per month and per year.</p>
         </header>
         <Dropzone onFile={handleFile} busy={busy} />
+        <div className="text-muted mt-4 flex items-center justify-center gap-3 text-sm">
+          <span>No statement handy?</span>
+          <button
+            type="button"
+            onClick={loadDemo}
+            disabled={busy}
+            className="rounded-card bg-panel-2 hover:border-accent border-border border px-4 py-2 font-medium text-white transition-colors disabled:opacity-50"
+          >
+            Use demo data
+          </button>
+        </div>
         {error ? <p className="text-danger mt-4 text-sm">{error}</p> : null}
         <ul className="text-muted mt-6 list-disc pl-[18px] text-sm leading-[1.9]">
           <li>Everything runs in your browser — nothing is uploaded.</li>

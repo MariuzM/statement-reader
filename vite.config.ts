@@ -4,7 +4,5 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [tailwindcss(), tanstackStart(), viteReact()],
+  plugins: [tailwindcss(), tanstackStart({ spa: { enabled: true } }), viteReact()],
 })
-
-// test

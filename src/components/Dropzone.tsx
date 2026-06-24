@@ -1,12 +1,11 @@
 import { useRef, useState } from 'react'
 
-export const Dropzone = ({
-  onFile,
-  busy,
-}: {
+type Props = {
   onFile: (name: string, text: string) => void
   busy: boolean
-}) => {
+}
+
+export const Dropzone = ({ onFile, busy }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [over, setOver] = useState(false)
 

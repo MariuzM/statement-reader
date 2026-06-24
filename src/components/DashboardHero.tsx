@@ -13,21 +13,16 @@ const MODES: { key: ChartMode; label: string }[] = [
   { key: 'byMonth', label: 'By month' },
 ]
 
-export const DashboardHero = ({
-  total,
-  currency,
-  delta,
-  hero,
-  mode,
-  onMode,
-}: {
+type Props = {
   total: number
   currency: string
   delta: { label: string; up: boolean } | null
   hero: Hero
   mode: ChartMode
   onMode: (m: ChartMode) => void
-}) => {
+}
+
+export const DashboardHero = ({ total, currency, delta, hero, mode, onMode }: Props) => {
   const [hovered, setHovered] = useState<number | null>(null)
 
   const yLabels = [

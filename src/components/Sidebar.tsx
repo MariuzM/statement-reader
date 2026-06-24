@@ -11,6 +11,24 @@ const VIEWS: { key: View; label: string }[] = [
   { key: 'tax', label: 'Tax (LT)' },
 ]
 
+type Props = {
+  fileName: string
+  txnCount: number
+  yearCount: number
+  view: View
+  onView: (v: View) => void
+  currencies: string[]
+  currency: string
+  onCurrency: (c: string) => void
+  years: number[]
+  yearFilter: YearFilter
+  onYearFilter: (f: YearFilter) => void
+  types: TypeInfo[]
+  excludedTypes: Set<string>
+  onToggleType: (key: string) => void
+  onReset: () => void
+}
+
 export const Sidebar = ({
   fileName,
   txnCount,
@@ -27,23 +45,7 @@ export const Sidebar = ({
   excludedTypes,
   onToggleType,
   onReset,
-}: {
-  fileName: string
-  txnCount: number
-  yearCount: number
-  view: View
-  onView: (v: View) => void
-  currencies: string[]
-  currency: string
-  onCurrency: (c: string) => void
-  years: number[]
-  yearFilter: YearFilter
-  onYearFilter: (f: YearFilter) => void
-  types: TypeInfo[]
-  excludedTypes: Set<string>
-  onToggleType: (key: string) => void
-  onReset: () => void
-}) => {
+}: Props) => {
   const yearChips: { label: string; value: YearFilter }[] = [
     { label: 'All', value: 'all' },
     ...years.map((y) => ({ label: String(y), value: y as YearFilter })),

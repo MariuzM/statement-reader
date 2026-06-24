@@ -1,15 +1,13 @@
 import { formatMoney, MONTHS } from '../lib/format'
 import type { YearlyEarnings } from '../lib/types'
 
-export const Heatmap = ({
-  years,
-  selMax,
-  currency,
-}: {
+type Props = {
   years: YearlyEarnings[]
   selMax: number
   currency: string
-}) => {
+}
+
+export const Heatmap = ({ years, selMax, currency }: Props) => {
   const cellBg = (total: number) => {
     const ratio = selMax > 0 ? total / selMax : 0
     const pct = ((0.05 + ratio * 0.5) * 100).toFixed(1)

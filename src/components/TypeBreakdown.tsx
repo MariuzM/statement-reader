@@ -2,7 +2,12 @@ import { formatMoney } from '../lib/format'
 
 type TypeRow = { key: string; type: string; count: number; total: number; in: number; out: number }
 
-export const TypeBreakdown = ({ rows, currency }: { rows: TypeRow[]; currency: string }) => {
+type Props = {
+  rows: TypeRow[]
+  currency: string
+}
+
+export const TypeBreakdown = ({ rows, currency }: Props) => {
   const max = Math.max(1, ...rows.map((r) => Math.abs(r.total)))
   const netTotal = rows.reduce((sum, r) => sum + r.total, 0)
   const totalCount = rows.reduce((sum, r) => sum + r.count, 0)

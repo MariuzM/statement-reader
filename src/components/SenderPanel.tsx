@@ -4,21 +4,16 @@ import type { SenderRow } from '../lib/dashboard'
 import { initialsOf } from '../lib/dashboard'
 import { formatMoney } from '../lib/format'
 
-export const SenderPanel = ({
-  senders,
-  currency,
-  excluded,
-  onToggle,
-  onAll,
-  onNone,
-}: {
+type Props = {
   senders: SenderRow[]
   currency: string
   excluded: Set<string>
   onToggle: (key: string) => void
   onAll: () => void
   onNone: () => void
-}) => {
+}
+
+export const SenderPanel = ({ senders, currency, excluded, onToggle, onAll, onNone }: Props) => {
   const [search, setSearch] = useState('')
 
   const max = Math.max(1, ...senders.map((s) => s.total))

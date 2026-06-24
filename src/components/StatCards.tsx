@@ -1,7 +1,12 @@
 import type { Dashboard } from '../lib/dashboard'
 import { formatMoney, MONTHS } from '../lib/format'
 
-export const StatCards = ({ data, currency }: { data: Dashboard; currency: string }) => {
+type Props = {
+  data: Dashboard
+  currency: string
+}
+
+export const StatCards = ({ data, currency }: Props) => {
   const cards: {
     label: string
     value: string

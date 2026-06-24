@@ -5,40 +5,14 @@ import { computeLtTaxes } from '../lib/tax'
 import type { YearlyEarnings } from '../lib/types'
 import { sectionTitle } from '../lib/ui'
 
-const Row = ({
-  label,
-  value,
-  hint,
-  tone,
-  strong,
-}: {
-  label: string
-  value: string
-  hint?: string
-  tone?: 'muted' | 'good' | 'danger'
-  strong?: boolean
-}) => {
-  const valueColor = tone === 'good' ? 'text-good' : tone === 'danger' ? 'text-danger' : ''
-  return (
-    <div className="flex items-baseline justify-between gap-3 py-1.5">
-      <span className={`text-sm ${strong ? 'font-semibold' : 'text-muted'}`}>
-        {label}
-        {hint ? <span className="text-muted ml-1.5 text-xs">{hint}</span> : null}
-      </span>
-      <span className={`shrink-0 tabular-nums ${strong ? 'font-semibold' : ''} ${valueColor}`}>
-        {value}
-      </span>
-    </div>
-  )
-}
+import { TaxRow } from './TaxRow'
 
-export const TaxBreakdown = ({
-  years,
-  currency,
-}: {
+type Props = {
   years: YearlyEarnings[]
   currency: string
-}) => {
+}
+
+export const TaxBreakdown = ({ years, currency }: Props) => {
   const rows = useMemo(
     () => computeLtTaxes(years.map((y) => ({ year: y.year, total: y.total }))),
     [years],
@@ -108,21 +82,21 @@ export const TaxBreakdown = ({
           </div>
 
           <div className="divide-border divide-y">
-            <Row label="Earnings (gross)" value={formatMoney(r.grossRevenue, currency)} strong />
-            <Row
+            <TaxRow label="Earnings (gross)" value={formatMoney(r.grossRevenue, currency)} strong />
+            <TaxRow
               label="Expenses"
               hint={`${formatPercent(r.config.expenseRate)} flat`}
               value={`− ${formatMoney(r.expenses, currency)}`}
               tone="muted"
             />
-            <Row label="Taxable profit" value={formatMoney(r.taxableProfit, currency)} strong />
-            <Row
+            <TaxRow label="Taxable profit" value={formatMoney(r.taxableProfit, currency)} strong />
+            <TaxRow
               label="GPM (income tax)"
               hint={`${formatPercent(r.gpmRate)} of profit`}
               value={`− ${formatMoney(r.gpm, currency)}`}
               tone="danger"
             />
-            <Row
+            <TaxRow
               label="VSD (Sodra pension)"
               hint={`${formatPercent(r.config.vsdRate)} of ${formatMoney(r.vsdBase, currency)}${
                 r.vsdCapped ? ' · capped' : ''
@@ -130,7 +104,7 @@ export const TaxBreakdown = ({
               value={`− ${formatMoney(r.vsd, currency)}`}
               tone="danger"
             />
-            <Row
+            <TaxRow
               label="PSD (health)"
               hint={
                 r.psdAtMinimum
@@ -140,13 +114,18 @@ export const TaxBreakdown = ({
               value={`− ${formatMoney(r.psd, currency)}`}
               tone="danger"
             />
-            <Row
+            <TaxRow
               label="Total due (tax + Sodra)"
               value={`− ${formatMoney(r.totalDue, currency)}`}
               tone="danger"
               strong
             />
-            <Row label="Take home" value={formatMoney(r.takeHome, currency)} tone="good" strong />
+            <TaxRow
+              label="Take home"
+              value={formatMoney(r.takeHome, currency)}
+              tone="good"
+              strong
+            />
           </div>
         </div>
       ))}

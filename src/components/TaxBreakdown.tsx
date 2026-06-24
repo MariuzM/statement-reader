@@ -61,8 +61,6 @@ export const TaxBreakdown = ({
     return <p className="text-muted text-sm">No earnings to calculate tax on.</p>
   }
 
-  const anyEstimated = rows.some((r) => !r.exact)
-
   return (
     <div className="flex flex-col gap-6">
       <div className="rounded-card border-border bg-panel border px-5 py-[18px]">

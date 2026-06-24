@@ -31,11 +31,11 @@ export const SenderPanel = ({
   }, [senders, search])
 
   return (
-    <section className="rounded-[16px] border border-border bg-panel px-6 py-[22px]">
+    <section className="border-border bg-panel rounded-[16px] border px-6 py-[22px]">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className="text-base font-semibold tracking-tight">Who paid you</div>
-          <div className="mt-1 text-[12.5px] text-muted">
+          <div className="text-muted mt-1 text-[12.5px]">
             {included.length} of {senders.length} included ·{' '}
             <span className="font-mono text-[#c6cbd4]">{formatMoney(includedTotal, currency)}</span>
           </div>
@@ -45,17 +45,17 @@ export const SenderPanel = ({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search senders"
-            className="w-[170px] rounded-[9px] border border-border bg-panel-2 px-3 py-2 text-[13px] text-text outline-none transition-colors focus:border-accent"
+            className="border-border bg-panel-2 text-text focus:border-accent w-[170px] rounded-[9px] border px-3 py-2 text-[13px] transition-colors outline-none"
           />
           <button
             onClick={onAll}
-            className="rounded-lg border border-border bg-panel-2 px-[13px] py-2 text-xs font-medium text-[#aeb4c0] transition-colors hover:border-accent hover:text-text"
+            className="border-border bg-panel-2 hover:border-accent hover:text-text rounded-lg border px-[13px] py-2 text-xs font-medium text-[#aeb4c0] transition-colors"
           >
             Select all
           </button>
           <button
             onClick={onNone}
-            className="rounded-lg border border-border bg-panel-2 px-[13px] py-2 text-xs font-medium text-[#aeb4c0] transition-colors hover:border-danger hover:text-text"
+            className="border-border bg-panel-2 hover:border-danger hover:text-text rounded-lg border px-[13px] py-2 text-xs font-medium text-[#aeb4c0] transition-colors"
           >
             Clear
           </button>
@@ -75,7 +75,9 @@ export const SenderPanel = ({
             >
               <div
                 className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-md text-[11px] font-bold ${
-                  on ? 'border-[1.5px] border-accent bg-accent text-[#06120d]' : 'border-[1.5px] border-[#3a3f4b]'
+                  on
+                    ? 'border-accent bg-accent border-[1.5px] text-[#06120d]'
+                    : 'border-[1.5px] border-[#3a3f4b]'
                 }`}
               >
                 {on ? '✓' : ''}
@@ -86,11 +88,13 @@ export const SenderPanel = ({
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className="truncate text-[13.5px] font-medium">{s.name}</span>
-                  <span className="shrink-0 rounded-full bg-[#1a1d23] px-2 py-px text-[11px] text-muted">{s.count}</span>
+                  <span className="text-muted shrink-0 rounded-full bg-[#1a1d23] px-2 py-px text-[11px]">
+                    {s.count}
+                  </span>
                 </div>
                 <div className="mt-2 h-[5px] overflow-hidden rounded bg-[#16191f]">
                   <div
-                    className="h-full rounded bg-linear-90 from-accent-dark to-accent-soft"
+                    className="from-accent-dark to-accent-soft h-full rounded bg-linear-90"
                     style={{ width: `${(s.total / max) * 100}%` }}
                   />
                 </div>
@@ -101,7 +105,9 @@ export const SenderPanel = ({
             </div>
           )
         })}
-        {!list.length ? <div className="px-2.5 py-6 text-sm text-muted">No senders match “{search}”.</div> : null}
+        {!list.length ? (
+          <div className="text-muted px-2.5 py-6 text-sm">No senders match “{search}”.</div>
+        ) : null}
       </div>
     </section>
   )

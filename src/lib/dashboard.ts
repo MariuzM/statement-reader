@@ -161,7 +161,12 @@ export const buildDashboard = (
 
   const legend: HeroLegend[] = isCumulative
     ? [{ label: 'Cumulative', amount: total, tone: 'accent' }]
-    : years.map((y, i) => ({ label: String(y.year), amount: y.total, tone: lineTone(i, years.length), year: y.year }))
+    : years.map((y, i) => ({
+        label: String(y.year),
+        amount: y.total,
+        tone: lineTone(i, years.length),
+        year: y.year,
+      }))
 
   const hero: Hero = {
     isCumulative,

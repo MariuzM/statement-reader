@@ -10,5 +10,7 @@ export const btnSm =
 
 export const chip = (active: boolean) =>
   `rounded-full border px-3.5 py-[7px] text-[13px] cursor-pointer transition-colors ${
-    active ? 'bg-accent/20 border-accent text-text' : 'bg-panel-2 border-border text-muted hover:text-text'
+    active
+      ? 'bg-accent/20 border-accent text-text'
+      : 'bg-panel-2 border-border text-muted hover:text-text'
   }`

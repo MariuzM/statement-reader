@@ -1,6 +1,12 @@
 import { useRef, useState } from 'react'
 
-export const Dropzone = ({ onFile, busy }: { onFile: (name: string, text: string) => void; busy: boolean }) => {
+export const Dropzone = ({
+  onFile,
+  busy,
+}: {
+  onFile: (name: string, text: string) => void
+  busy: boolean
+}) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [over, setOver] = useState(false)
 
@@ -13,8 +19,8 @@ export const Dropzone = ({ onFile, busy }: { onFile: (name: string, text: string
 
   return (
     <div
-      className={`cursor-pointer rounded-card border-2 border-dashed bg-panel px-6 py-14 text-center transition-all hover:border-accent hover:bg-panel-2 ${
-        over ? 'scale-[1.01] border-accent bg-panel-2' : 'border-border'
+      className={`rounded-card bg-panel hover:border-accent hover:bg-panel-2 cursor-pointer border-2 border-dashed px-6 py-14 text-center transition-all ${
+        over ? 'border-accent bg-panel-2 scale-[1.01]' : 'border-border'
       }`}
       onClick={() => inputRef.current?.click()}
       onDragOver={(e) => {
@@ -35,9 +41,15 @@ export const Dropzone = ({ onFile, busy }: { onFile: (name: string, text: string
         hidden
         onChange={(e) => void handleFiles(e.target.files)}
       />
-      <div className="mx-auto mb-4 h-14 w-14 rounded-full bg-accent text-[28px] leading-[56px] text-white">↑</div>
-      <div className="text-lg font-semibold">{busy ? 'Reading…' : 'Drop your statement CSV here'}</div>
-      <div className="mt-1.5 text-sm text-muted">or click to choose a file · Revolut export format</div>
+      <div className="bg-accent mx-auto mb-4 h-14 w-14 rounded-full text-[28px] leading-[56px] text-white">
+        ↑
+      </div>
+      <div className="text-lg font-semibold">
+        {busy ? 'Reading…' : 'Drop your statement CSV here'}
+      </div>
+      <div className="text-muted mt-1.5 text-sm">
+        or click to choose a file · Revolut export format
+      </div>
     </div>
   )
 }

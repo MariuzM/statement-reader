@@ -5,7 +5,8 @@ import { formatCompact, formatMoney } from '../lib/format'
 
 const LINE_COLORS = ['#35d39a', '#60a5fa', '#f59e0b', '#a78bfa', '#f472b6', '#2dd4bf']
 
-const colorFor = (i: number, n: number) => LINE_COLORS[(n - 1 - i) % LINE_COLORS.length] ?? '#35d39a'
+const colorFor = (i: number, n: number) =>
+  LINE_COLORS[(n - 1 - i) % LINE_COLORS.length] ?? '#35d39a'
 
 const MODES: { key: ChartMode; label: string }[] = [
   { key: 'cumulative', label: 'Cumulative' },
@@ -37,12 +38,14 @@ export const DashboardHero = ({
   ]
 
   return (
-    <section className="rounded-[16px] border border-border bg-panel px-[26px] py-6">
+    <section className="border-border bg-panel rounded-[16px] border px-[26px] py-6">
       <div className="flex flex-wrap items-start justify-between gap-5">
         <div>
-          <div className="text-xs font-medium uppercase tracking-[0.04em] text-muted">Total earnings</div>
+          <div className="text-muted text-xs font-medium tracking-[0.04em] uppercase">
+            Total earnings
+          </div>
           <div className="mt-[9px] flex items-center gap-3">
-            <span className="font-mono text-[38px] font-semibold tracking-[-0.02em] text-accent-soft">
+            <span className="text-accent-soft font-mono text-[38px] font-semibold tracking-[-0.02em]">
               {formatMoney(total, currency)}
             </span>
             {delta ? (
@@ -56,7 +59,7 @@ export const DashboardHero = ({
             ) : null}
           </div>
         </div>
-        <div className="flex gap-[3px] rounded-[10px] border border-border bg-panel-2 p-[3px]">
+        <div className="border-border bg-panel-2 flex gap-[3px] rounded-[10px] border p-[3px]">
           {MODES.map((m) => {
             const active = mode === m.key
             return (
@@ -75,13 +78,17 @@ export const DashboardHero = ({
       </div>
 
       <div className="mt-[22px] flex gap-3.5">
-        <div className="flex h-[240px] w-[46px] shrink-0 flex-col justify-between py-1.5 text-right font-mono text-[10.5px] text-subtle">
+        <div className="text-subtle flex h-[240px] w-[46px] shrink-0 flex-col justify-between py-1.5 text-right font-mono text-[10.5px]">
           {yLabels.map((l, i) => (
             <div key={i}>{l}</div>
           ))}
         </div>
         <div className="min-w-0 flex-1">
-          <svg viewBox="0 0 1000 260" preserveAspectRatio="none" className="block h-[240px] w-full overflow-visible">
+          <svg
+            viewBox="0 0 1000 260"
+            preserveAspectRatio="none"
+            className="block h-[240px] w-full overflow-visible"
+          >
             <defs>
               <linearGradient id="heroArea" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.34" />
@@ -89,9 +96,26 @@ export const DashboardHero = ({
               </linearGradient>
             </defs>
             {[14, 93, 172].map((yy) => (
-              <line key={yy} x1="0" y1={yy} x2="1000" y2={yy} stroke="#1d2128" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+              <line
+                key={yy}
+                x1="0"
+                y1={yy}
+                x2="1000"
+                y2={yy}
+                stroke="#1d2128"
+                strokeWidth="1"
+                vectorEffect="non-scaling-stroke"
+              />
             ))}
-            <line x1="0" y1="251" x2="1000" y2="251" stroke="#262b38" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <line
+              x1="0"
+              y1="251"
+              x2="1000"
+              y2="251"
+              stroke="#262b38"
+              strokeWidth="1"
+              vectorEffect="non-scaling-stroke"
+            />
             {hero.isCumulative ? (
               <>
                 {hero.areaPath ? <path d={hero.areaPath} fill="url(#heroArea)" /> : null}
@@ -139,7 +163,7 @@ export const DashboardHero = ({
               })
             )}
           </svg>
-          <div className="mt-2.5 flex justify-between font-mono text-[10.5px] text-subtle">
+          <div className="text-subtle mt-2.5 flex justify-between font-mono text-[10.5px]">
             {hero.xLabels.map((l, i) => (
               <div key={i}>{l}</div>
             ))}
@@ -154,14 +178,16 @@ export const DashboardHero = ({
           return (
             <div
               key={i}
-              className="flex items-center gap-2 text-xs text-muted transition-opacity"
+              className="text-muted flex items-center gap-2 text-xs transition-opacity"
               style={{ opacity: dim ? 0.35 : 1, cursor: lg.year != null ? 'pointer' : 'default' }}
               onMouseEnter={() => lg.year != null && setHovered(lg.year)}
               onMouseLeave={() => setHovered(null)}
             >
               <span className="h-[9px] w-[9px] rounded-[3px]" style={{ background: color }} />
               {lg.label}
-              <span className="font-mono font-medium text-text">{formatMoney(lg.amount, currency)}</span>
+              <span className="text-text font-mono font-medium">
+                {formatMoney(lg.amount, currency)}
+              </span>
             </div>
           )
         })}

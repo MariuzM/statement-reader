@@ -128,7 +128,8 @@ function Home() {
   )
 
   const taxYears = useMemo(
-    () => (report ? (yearSet ? report.years.filter((y) => yearSet.has(y.year)) : report.years) : []),
+    () =>
+      report ? (yearSet ? report.years.filter((y) => yearSet.has(y.year)) : report.years) : [],
     [report, yearSet],
   )
 
@@ -181,11 +182,11 @@ function Home() {
       <main className="mx-auto flex min-h-screen max-w-[560px] flex-col justify-center px-6 py-16">
         <header className="mb-8">
           <h1 className="text-[28px] font-bold tracking-tight">Statement Reader</h1>
-          <p className="mt-1.5 text-muted">How much you earned, per month and per year.</p>
+          <p className="text-muted mt-1.5">How much you earned, per month and per year.</p>
         </header>
         <Dropzone onFile={handleFile} busy={busy} />
-        {error ? <p className="mt-4 text-sm text-danger">{error}</p> : null}
-        <ul className="mt-6 list-disc pl-[18px] text-sm leading-[1.9] text-muted">
+        {error ? <p className="text-danger mt-4 text-sm">{error}</p> : null}
+        <ul className="text-muted mt-6 list-disc pl-[18px] text-sm leading-[1.9]">
           <li>Everything runs in your browser — nothing is uploaded.</li>
           <li>Earnings = incoming money, excluding top-ups and card refunds by default.</li>
           <li>Toggle which transaction types count once your file is loaded.</li>
@@ -236,7 +237,7 @@ function Home() {
           <div className="flex flex-wrap items-end justify-between gap-5">
             <div>
               <h1 className="text-[28px] font-bold tracking-[-0.025em]">{head.title}</h1>
-              <div className="mt-1.5 text-[13px] text-muted">{head.sub}</div>
+              <div className="text-muted mt-1.5 text-[13px]">{head.sub}</div>
             </div>
           </div>
 
@@ -275,7 +276,9 @@ function Home() {
                 />
               </>
             ) : (
-              <p className="text-sm text-danger">No earnings in {currency} with the current filters.</p>
+              <p className="text-danger text-sm">
+                No earnings in {currency} with the current filters.
+              </p>
             )
           ) : view === 'types' ? (
             <TypeBreakdown rows={typeBreakdown} currency={currency} />

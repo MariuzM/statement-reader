@@ -4,7 +4,8 @@ export const DEFAULT_EXCLUDED_TYPES = ['TOPUP', 'CARD_REFUND']
 
 export const DEFAULT_EXCLUDED_SENDERS = ['Withdrawing savings', 'Pocket Withdrawal']
 
-export const senderKey = (description: string) => (description.trim() || '(no description)').toLowerCase()
+export const senderKey = (description: string) =>
+  (description.trim() || '(no description)').toLowerCase()
 
 export const collectSenders = (
   txns: Transaction[],
@@ -27,9 +28,7 @@ export const collectSenders = (
       map.set(key, { name, count: 1, total: t.amount })
     }
   }
-  return [...map.entries()]
-    .map(([key, v]) => ({ key, ...v }))
-    .sort((a, b) => b.total - a.total)
+  return [...map.entries()].map(([key, v]) => ({ key, ...v })).sort((a, b) => b.total - a.total)
 }
 
 export const collectTypes = (txns: Transaction[]) => {
@@ -44,9 +43,7 @@ export const collectTypes = (txns: Transaction[]) => {
       map.set(t.typeKey, { type: t.type, count: 1, total: t.amount })
     }
   }
-  return [...map.entries()]
-    .map(([key, v]) => ({ key, ...v }))
-    .sort((a, b) => b.total - a.total)
+  return [...map.entries()].map(([key, v]) => ({ key, ...v })).sort((a, b) => b.total - a.total)
 }
 
 export const yearSenderKey = (year: number, key: string) => `${year}:${key}`
@@ -67,7 +64,10 @@ export const collectIncomeTxns = (
     .sort((a, b) => b.date.getTime() - a.date.getTime())
 
 export const collectTypeBreakdown = (txns: Transaction[], currency: string) => {
-  const map = new Map<string, { type: string; count: number; total: number; in: number; out: number }>()
+  const map = new Map<
+    string,
+    { type: string; count: number; total: number; in: number; out: number }
+  >()
   for (const t of txns) {
     if (t.state !== 'COMPLETED') continue
     if (t.currency !== currency) continue

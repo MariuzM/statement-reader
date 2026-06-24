@@ -1,4 +1,5 @@
 import Papa from 'papaparse'
+
 import type { Transaction } from './types'
 
 export const normalizeType = (t: string) => t.trim().toUpperCase().replace(/\s+/g, '_')
@@ -6,7 +7,10 @@ export const normalizeType = (t: string) => t.trim().toUpperCase().replace(/\s+/
 const toNumber = (v: string | undefined) => {
   if (!v) return 0
   const cleaned = String(v).replace(/[^0-9.,-]/g, '')
-  const normalized = cleaned.includes(',') && !cleaned.includes('.') ? cleaned.replace(',', '.') : cleaned.replace(/,/g, '')
+  const normalized =
+    cleaned.includes(',') && !cleaned.includes('.')
+      ? cleaned.replace(',', '.')
+      : cleaned.replace(/,/g, '')
   const n = Number(normalized)
   return Number.isFinite(n) ? n : 0
 }
